@@ -16,7 +16,6 @@ with open(inf_filename,"r") as file:
     l1 = float(l1)
     l2 = float(l2)
 
-print(l1,l2)
 
 with open(filename,"r") as file:
     lines = file.readlines()
