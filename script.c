@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <unistd.h>
 
 float g = 9.8;
 
@@ -75,7 +76,12 @@ float* calc_rk_gen_step(
 
 int main(){
     FILE *fptr;
+    FILE *ptr_info;
     
+    ptr_info = fopen("info.txt","w");
+    fprintf(ptr_info,"%f,%f",l1,l2);
+    fclose(ptr_info);
+
     printf("Ingresa el angulo theta inicial: ");
     scanf("%f",&theta);
     printf("Ingresa el angulo phi inicial: ");
@@ -85,6 +91,7 @@ int main(){
     int steps;
     printf("Ingresa el número de iteraciónes: ");
     scanf("%d",&steps);
+
 
     float h=0.01;
     for(int step=0;step<steps;step++){
@@ -100,6 +107,7 @@ int main(){
         }
         fprintf(fptr,"\n");
     }
+    fclose(fptr);
     system("python3 animation.py");
     return 0;
 }
