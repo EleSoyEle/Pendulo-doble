@@ -64,7 +64,13 @@ def animation(i):
 
 
 func = FuncAnimation(fig,animation,steps,interval=0.01)
-#ffmpeg_writer = writers['ffmpeg']
-#writer = ffmpeg_writer(fps=32, codec='mpeg4')
-#func.save("video.mp4", writer=writer,dpi=500)
+opt = input("¿Quieres guardar el video?[y/n]")
+if opt=="y":
+    name = input("Ingresa el nombre[mp4]: ")
+    if name.find(".mp4")==-1:
+        name = name+".mp4"
+    print("El video se esta creando, espera un poco...")
+    ffmpeg_writer = writers['ffmpeg']
+    writer = ffmpeg_writer(fps=32, codec='mpeg4')
+    func.save(name, writer=writer,dpi=400)
 plt.show()
