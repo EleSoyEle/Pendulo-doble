@@ -1,8 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation,FFMpegWriter,writers
+import argparse
 
-filename = "datos.txt"
+
+argp = argparse.ArgumentParser()
+argp.add_argument("-d","--path",type=str,default="")
+args = argp.parse_args()
+
+filename = args.path
 inf_filename = "info.txt"
 theta = []
 phi = []
@@ -48,6 +54,7 @@ ax = fig.add_subplot()
 
 def animation(i):
     ax.clear()
+    ax.axis("off")
     ax.set_xlim(-l1-l2-0.1,l1+l2+0.1)
     ax.set_ylim(-l1-l2-0.1,1)
     ax.plot(x1[:i+1],y1[:i+1],c="w",linewidth=0.7,alpha=0.7)

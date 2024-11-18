@@ -20,6 +20,8 @@ float phi;
 float dphi = 0;
 
 float ti = 0;
+#undef RAND_MAX
+#define RAND_MAX 1000
 
 //Vamos a deinir la función que calcula las respectivas segundas derivadas
 float* d2y(float theta_,float phi_,float dtheta_,float dphi_,float t_){
@@ -87,7 +89,16 @@ int main(){
     printf("Ingresa el angulo phi inicial: ");
     scanf("%f",&phi);
 
-    fptr = fopen("datos.txt","w");
+
+    int random_number_0 = rand();
+    int random_number_1 = rand();
+    int random_number_t = abs(random_number_0*random_number_1);
+    
+    char filename[50];
+    sprintf(filename,"%d",random_number_t);
+    
+    strcat(filename,".txt");
+    fptr = fopen(filename,"w");
     int steps;
     printf("Ingresa el número de iteraciónes: ");
     scanf("%d",&steps);
@@ -108,6 +119,26 @@ int main(){
         fprintf(fptr,"\n");
     }
     fclose(fptr);
-    system("python3 animation.py");
+    char ejec_py_str[100];
+    strcat(ejec_py_str,"python3 animation.py --path=");
+    strcat(ejec_py_str,filename);
+    system(ejec_py_str);
+
+    char opt[5];
+    printf("¿Quieres borrar el archivo de datos?[y/n]\n:");
+    scanf("%s",&opt);
+
+    if(*opt == 'n'){
+        printf("El archivo ha sido guardado en ");
+        printf("%s",filename);
+
+    }
+    else{
+        char rem_d_f[100];
+        strcat(rem_d_f,"rm ");
+        strcat(rem_d_f,filename);
+        system(rem_d_f);
+    }
+    
     return 0;
 }
